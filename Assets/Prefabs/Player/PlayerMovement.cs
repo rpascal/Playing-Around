@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] ParticleSystem ParticleSystem;
-    [SerializeField] float speed = 10f;
+    [SerializeField] float speed = 25f;
 
 
     Rigidbody playerRigidbody;

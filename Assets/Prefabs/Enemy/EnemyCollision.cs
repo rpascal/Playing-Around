@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour {
 
+    [SerializeField] float speed = 10f;
+    Rigidbody rigidBody;
+
 
     void Start() {
-
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        transform.Translate(Vector3.left * 1f * Time.deltaTime);
+        Move();
+    }
+
+
+    private void Move() {
+        var movement = Vector3.forward * speed * Time.deltaTime;
+        rigidBody.MovePosition(transform.position + movement);
     }
 
     private void OnParticleCollision(GameObject other) {
