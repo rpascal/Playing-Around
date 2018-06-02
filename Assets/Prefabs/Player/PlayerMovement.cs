@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour {
         playerRigidbody = GetComponent<Rigidbody>();
         emissionModule = ParticleSystem.emission;
         currentDirection = Vector3.forward;
+
+        playerRigidbody.freezeRotation = true;
+
     }
 
 
