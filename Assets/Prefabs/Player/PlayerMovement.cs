@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] ParticleSystem ParticleSystem;
     [SerializeField] float speed = 25f;
-
+    private LineRenderer lineRenderer;
 
     Rigidbody playerRigidbody;
     ParticleSystem.EmissionModule emissionModule;
@@ -15,14 +15,20 @@ public class PlayerMovement : MonoBehaviour {
     void Start() {
         playerRigidbody = GetComponent<Rigidbody>();
         emissionModule = ParticleSystem.emission;
-        currentDirection = Vector3.forward;
+        currentDirection = Vector3.right;
 
         playerRigidbody.freezeRotation = true;
 
+        //lineRenderer = gameObject.GetComponent<LineRenderer>();
+
+
+        //lineRenderer.SetPosition(0, transform.position);
     }
 
 
     void Update() {
+        //lineRenderer.SetPosition(1, transform.position);
+
         UpdateDirection();
         DisplayTrail();
         Move();
