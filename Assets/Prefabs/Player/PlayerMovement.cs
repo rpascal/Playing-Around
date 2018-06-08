@@ -1,38 +1,38 @@
-﻿using System.Collections;
+﻿using Ara;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class PlayerMovement : MonoBehaviour {
 
-    [SerializeField] ParticleSystem ParticleSystem;
+    [SerializeField] AraTrail trail;
     [SerializeField] float speed = 25f;
-    private LineRenderer lineRenderer;
+    public Vector3 startingDirection = Vector3.right;
+    public bool trailAlwaysOn = false;
 
     Rigidbody playerRigidbody;
-    ParticleSystem.EmissionModule emissionModule;
+
     Vector3 currentDirection;
 
-    void Start() {
+
+    void Awake() {
         playerRigidbody = GetComponent<Rigidbody>();
-        emissionModule = ParticleSystem.emission;
-        currentDirection = Vector3.right;
-
+        currentDirection = startingDirection;
         playerRigidbody.freezeRotation = true;
-
-        //lineRenderer = gameObject.GetComponent<LineRenderer>();
-
-
-        //lineRenderer.SetPosition(0, transform.position);
+        trail.emit = false;
     }
 
 
     void Update() {
-        //lineRenderer.SetPosition(1, transform.position);
-
         UpdateDirection();
         DisplayTrail();
         Move();
     }
+
+
+
 
     private void Move() {
         var movement = currentDirection * speed * Time.deltaTime;
@@ -40,10 +40,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void DisplayTrail() {
+        if (trailAlwaysOn) { trail.emit = true; return; }
         if (Input.GetKey(KeyCode.Space)) {
-            emissionModule.enabled = true;
+            trail.emit = true;
         } else {
-            emissionModule.enabled = false;
+            trail.emit = false;
         }
     }
 
