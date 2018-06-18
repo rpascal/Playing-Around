@@ -17,12 +17,10 @@ public class PlayerTrailCollider : MonoBehaviour {
     }
 
     void Update() {
-        if (Hit()) {
-            Destroy(hit.collider.gameObject);
-        }
+        CheckHits();
     }
 
-    bool Hit() {
+    bool CheckHits() {
         if (trail.points.Count < 2) {
             return false;
         }
@@ -30,7 +28,8 @@ public class PlayerTrailCollider : MonoBehaviour {
             var point = trail.points[i].position;
             var nextPoint = trail.points[i + 1].position;
             if (Physics.Linecast(point, nextPoint, out hit, nonPlayerLayers, QueryTriggerInteraction.Collide) && Vector3.Distance(point, nextPoint) < maxDistanceApart) {
-                return true;
+                Destroy(hit.collider.gameObject);
+                //return true;
             }
         }
         return false;
